@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.clock{
+			width: 200px;
+			height: 200px;
+			border: 1px solid #333;
+			border-radius: 50%;
+			background: radial-gradient(#fff,#ccc);
+			position: fixed ;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+		}
+	</style>
+	<body>
+		<div class="clock"></div>
+	</body>
+	<script type="text/javascript">
+		window.onload=function(){
+			var clock=document.querySelector(".clock");
+			mark();
+			var time = new Date();
+			var house=time.getHours();
+			var min=time.getMinutes();
+			var sec=time.getSeconds();
+			var h=creat(7,30,"#000",house*30+min*6/12);
+			var m=creat(6,40,"#000",min*6);
+			var s=creat(4,50,"#000",sec*6);
+			setInterval(function(){
+				var time = new Date();
+				var house=time.getHours();
+				var min=time.getMinutes();
+				var sec=time.getSeconds();
+				h.style.transform="rotate("+(house*30+min*6/12)+"deg)";
+				m.style.transform="rotate("+(min*6)+"deg)";
+				s.style.transform="rotate("+(sec*6)+"deg)";
+				
+			},1000);
+			function mark(){
+				var width,height;
+				for(var i=0;i<60;i++){
+					if(i%5==0){
+						width=6;
+						height=10;
+					}else{
+						width=4;
+						height=6;
+					}
+					var div=document.createElement("div");
+					div.style.cssText="width:"+width+"px;height:"+height+"px;background: #000;position: absolute;left:"+(200-width)/2+"px;top: 0";
+					div.style.transform="rotate("+i*6+"deg)";
+					div.style.transformOrigin="center 100px";
+					clock.append(div);
+				}
+		    }
+			function creat(w,h,c,angle){
+				var div=document.createElement("div");
+				var left=(200-w)/2;
+				var top=100-h;
+				div.style.cssText="width:"+w+"px;height:"+h+"px; background:"+c+";position: absolute;left: "+left+"px;top:"+top+"px;";
+				div.style.transform="rotate("+angle+"deg)";
+				div.style.transformOrigin="center bottom";
+				clock.append(div);
+				return div;
+			}
+		}
+		
+	</script>
+</html>
